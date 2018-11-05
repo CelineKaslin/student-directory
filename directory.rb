@@ -21,13 +21,10 @@ def print_header
 end
 
 def print_name(names)
-  type_name = true
-  while type_name
-    names.each do |student|
-      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    names.each_with_index do |student, index|
+      index += 1
+      puts "#{index} #{student[:name]} (#{student[:cohort]} cohort)"
     end
-    type_name = false
-  end
 end
 
 def print_footer(names)
