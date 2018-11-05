@@ -1,5 +1,4 @@
 def input_students
-
   puts "Please enter the students's names :"
   name = gets.chomp
   puts "Please enter the student's birth place :"
@@ -37,7 +36,7 @@ def print_name(names)
   while type_name
     names.each_with_index do |student, index|
       index += 1
-      puts "#{index} #{student[:name]}, #{student[:age]}, #{student[:hobby]} (#{student[:cohort]} cohort)"
+      puts "#{index}. #{student[:name].center(15)}, #{student[:age]}, #{student[:hobby].center(15)} (#{student[:cohort]} cohort)"
     end
     type_name = false
   end
