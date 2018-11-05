@@ -22,7 +22,7 @@ end
 
 def print_name(names)
   names.each do |student|
-    if student[:name].start_with? "n"
+    if student[:name].length < 12
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
   end
@@ -36,5 +36,3 @@ students = input_students
 print_header
 print_name(students)
 print_footer(students)
-
-#student[:name].length < 12
