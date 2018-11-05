@@ -21,10 +21,12 @@ def print_header
 end
 
 def print_name(names)
-  names.each do |student|
-    if student[:name].length < 12
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
-  end
+  type_name = true
+  while type_name
+    names.each do |student|
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+    type_name = false
   end
 end
 
