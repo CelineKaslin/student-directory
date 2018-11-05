@@ -3,7 +3,7 @@ def input_students
   puts "To finish, juts hit return twice"
   students = Array.new
   name = gets.chomp
-  #while the name is not empt, repeat this code
+  #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the Array
     students << {name: name, cohort: :november}
@@ -21,7 +21,11 @@ def print_header
 end
 
 def print_name(names)
-names.each {|student| puts "#{student[:name]} (#{student[:cohort]} cohort)"}
+  names.each do |student|
+    if student[:name].start_with? "n"
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  end
+  end
 end
 
 def print_footer(names)
@@ -32,3 +36,5 @@ students = input_students
 print_header
 print_name(students)
 print_footer(students)
+
+#student[:name].length < 12
