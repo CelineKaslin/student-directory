@@ -5,13 +5,14 @@ def input_students
     while !name.empty? do
       puts "Please enter the student's cohort :"
       cohort = gets.chomp
-      puts "To finish, juts enter 'stop'"
+      puts "To finish, just enter 'stop'"
       if cohort == ""
          cohort = "November"
        end
       #add the student hash to the Array
       students << {name: name, cohort: cohort.to_sym}
-      puts "Now we have #{students.count} students"
+      puts "Now we have #{students.count} student" if students.count == 1
+      puts "Now we have #{students.count} students" if students.count != 1
       #gets an other name from the input_students
       name = gets.chomp
       if name == "stop"
@@ -38,7 +39,8 @@ def print_name(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great student" if students.count == 1
+  puts "Overall, we have #{students.count} great students" if students.count != 1
 end
 # nothing happen until we call the methods
 students = input_students
