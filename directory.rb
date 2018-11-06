@@ -1,6 +1,6 @@
 def input_students
   puts "Please enter the students's names :"
-  name = gets.chomp
+  name = gets.tr("\n\r", "")
   students = Array.new
     while !name.empty? do
       puts "Please enter the student's cohort :"
