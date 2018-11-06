@@ -40,10 +40,10 @@ end
 
 def print_footer(students)
   puts "Overall, we have #{students.count} great student" if students.count == 1
-  puts "Overall, we have #{students.count} great students" if students.count != 1
+  puts "Overall, we have #{students.count} great students" if students.count > 1
 end
 # nothing happen until we call the methods
 students = input_students
-print_header
+print_header if students != []
 print_name(students)
 print_footer(students)
