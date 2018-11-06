@@ -1,13 +1,11 @@
 def input_students
-
   puts "Please enter the students's names :"
   name = gets.chomp
-  puts "To finish, juts enter 'stop'"
-
   students = Array.new
     while !name.empty? do
       puts "Please enter the student's cohort :"
       cohort = gets.chomp
+      puts "To finish, juts enter 'stop'"
       if cohort == ""
          cohort = "November"
        end
@@ -28,15 +26,19 @@ def print_header
   puts "--------------"
 end
 
-def print_name(names)
-    names.each_with_index do |student, index|
-      index += 1
-      puts "#{index}. #{student[:name].center(15)}, (#{student[:cohort]} cohort)"
-  end
+def print_name(students)
+    cohorts = []
+    students.each {|student| cohorts.push(student[:cohort])}
+    cohorts.uniq.each do |cohort|
+      puts "Cohort: #{cohort}"
+      students.map do |student|
+        puts "#{student[:name].center(15)}" if student[:cohort] == cohort
+      end
+    end
 end
 
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+def print_footer(students)
+  puts "Overall, we have #{students.count} great students"
 end
 # nothing happen until we call the methods
 students = input_students
