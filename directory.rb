@@ -1,27 +1,28 @@
 def input_students
+
   puts "Please enter the students's names :"
   name = gets.chomp
-  puts "Please enter the student's birth place :"
-  birth_place = gets.chomp
-  puts "please enter the student's age :"
-  age = gets.chomp
-  puts "Please enter the student's hobby :"
-  hobby = gets.chomp
+  puts "Please enter the student's cohort :"
+  cohort = gets.chomp
+  if cohort == ""
+    cohort = "November"
+  end
   puts "To finish, juts enter 'stop'"
 
   students = Array.new
     while !name.empty? do
       #add the student hash to the Array
-      students << {name: name,birth_place: birth_place, age: age, hobby: hobby, cohort: :november}
+      students << {name: name, cohort: cohort}
       puts "Now we have #{students.count} students"
       #gets an other name from the input_students
       name = gets.chomp
       if name == "stop"
         break
       end
-      birth_place = gets.chomp
-      age = gets.chomp
-      hobby = gets.chomp
+      cohort = gets.chomp
+      if cohort == ""
+        cohort = "November"
+      end
   end
   students
 end
@@ -36,7 +37,7 @@ def print_name(names)
   while type_name
     names.each_with_index do |student, index|
       index += 1
-      puts "#{index}. #{student[:name].center(15)}, #{student[:age]}, #{student[:hobby].center(15)} (#{student[:cohort]} cohort)"
+      puts "#{index}. #{student[:name].center(15)}, (#{student[:cohort]} cohort)"
     end
     type_name = false
   end
