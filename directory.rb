@@ -4,7 +4,7 @@ def load_students(filename = "student.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-      @students << {name: name, cohort: cohort.to_sym}
+      add_students(name, cohort)
   end
   file.close
 end
@@ -73,6 +73,10 @@ def interactive_menu
   end
 end
 
+def add_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
 def input_students
   puts "Please enter the students's names :"
   name = STDIN.gets.tr("\n\r", "")
@@ -84,7 +88,7 @@ def input_students
        cohort = "November"
      end
     #add the student hash to the Array
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students(name, cohort)
     puts "Now we have #{@students.count} student" if @students.count == 1
     puts "Now we have #{@students.count} students" if @students.count != 1
     #gets an other name from the input_students
