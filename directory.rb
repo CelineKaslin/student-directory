@@ -7,6 +7,7 @@ def load_students(filename = "student.csv")
       add_students(name, cohort)
   end
   file.close
+  puts "student list loaded"
 end
 
 def try_load_students
@@ -31,6 +32,7 @@ def save_students
     file.puts csv_line # write directly into the file
   end
   file.close
+  puts "student's info saved in file"
 end
 
 def print_menu
@@ -54,7 +56,9 @@ def case_action(selection)
   when "2" then show_students
   when "3" then save_students
   when "4" then load_students
-  when "9" then exit # this will cause the program to terminate
+  when "9"
+    puts "Bye"
+    exit
   else puts "I do not know what you meant, try again"
   end
 end
@@ -92,8 +96,12 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains academy"
-  puts "--------------"
+  if @students.count > 0
+    puts "The students of Villains academy"
+    puts "--------------"
+  else
+    puts "there is no student registered"
+  end
 end
 
 def print_students_list
