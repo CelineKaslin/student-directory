@@ -1,12 +1,24 @@
 @students = []
 
-def load_students
+def load_students(filename = "student.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
       @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
+end
+
+def try_load_students
+  filename = ARGV.first # 1st argument from the command csv_line
+  return if filename.nil? # get out of the method if it's not given
+  if File.exists?(filename) # if it exist
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else # if it does not exist
+    puts "Sorry, #{filename} does not exist."
+    exit
+  end
 end
 
 def save_students
@@ -57,16 +69,16 @@ def interactive_menu
   loop do
     print_menu
     # do what the user has asked
-    case_action(gets.chomp) # user selection directly passed as argument
+    case_action(STDIN.gets.chomp) # user selection directly passed as argument
   end
 end
 
 def input_students
   puts "Please enter the students's names :"
-  name = gets.tr("\n\r", "")
+  name = STDIN.gets.tr("\n\r", "")
   while !name.empty? do
     puts "Please enter the student's cohort :"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     puts "To finish, just enter 'stop'"
     if cohort == ""
        cohort = "November"
@@ -76,7 +88,7 @@ def input_students
     puts "Now we have #{@students.count} student" if @students.count == 1
     puts "Now we have #{@students.count} students" if @students.count != 1
     #gets an other name from the input_students
-    name = gets.chomp
+    name = STDIN.gets.chomp
     if name == "stop"
       break
     end
@@ -106,4 +118,5 @@ def print_footer
 end
 
 # nothing happen until we call the methods
+try_load_students
 interactive_menu
