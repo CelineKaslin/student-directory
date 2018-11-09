@@ -10,13 +10,9 @@ def load_students(filename = "student.csv")
 end
 
 def try_load_students
-  if ARGV != nil
-    filename = ARGV.first
-  else
-    filename = "student.csv"
-  end
+  ARGV != nil ? filename = ARGV.first : filename = "student.csv"
   return if filename.nil? # get out of the method if it's not given
-  if File.exists?(filename) # if it exist
+  if File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else # if it does not exist
@@ -27,12 +23,12 @@ end
 
 def save_students
   # open the file for writting
-  file = File.open("students.csv", "w") # file name, write mode
+  file = File.open("students.csv", "w")
   # iterate over the array of save_students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
-    file.puts csv_line # write to the file
+    file.puts csv_line # write directly into the file
   end
   file.close
 end
@@ -54,25 +50,18 @@ end
 
 def case_action(selection)
   case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit # this will cause the program to terminate
-  else
-    puts "I do not know what you meant, try again"
+  when "1" then input_students
+  when "2" then show_students
+  when "3" then save_students
+  when "4" then load_students
+  when "9" then exit # this will cause the program to terminate
+  else puts "I do not know what you meant, try again"
   end
 end
 
 def interactive_menu
   loop do
     print_menu
-    # do what the user has asked
     case_action(STDIN.gets.chomp) # user selection directly passed as argument
   end
 end
@@ -83,19 +72,17 @@ end
 
 def input_students
   puts "Please enter the students's names :"
-  name = STDIN.gets.tr("\n\r", "")
+  name = STDIN.gets.tr("\n\r", "") # other chomp method
   while !name.empty? do
     puts "Please enter the student's cohort :"
     cohort = STDIN.gets.chomp
     puts "To finish, just enter 'stop'"
     if cohort == ""
        cohort = "November"
-     end
-    #add the student hash to the Array
+    end
     add_students(name, cohort)
     puts "Now we have #{@students.count} student" if @students.count == 1
     puts "Now we have #{@students.count} students" if @students.count != 1
-    #gets an other name from the input_students
     name = STDIN.gets.chomp
     if name == "stop"
       break
@@ -125,6 +112,5 @@ def print_footer
   puts "Overall, we have #{@students.count} great students" if @students.count > 1
 end
 
-# nothing happen until we call the methods
 try_load_students
 interactive_menu
