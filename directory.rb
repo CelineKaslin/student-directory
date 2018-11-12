@@ -1,6 +1,6 @@
 @students = []
 
-def load_students(filename = "student.csv")
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
@@ -11,7 +11,7 @@ def load_students(filename = "student.csv")
 end
 
 def try_load_students
-  ARGV != nil ? filename = ARGV.first : filename = "student.csv"
+  ARGV != nil ? filename = ARGV.first : filename = "students.csv"
   return if filename.nil? # get out of the method if it's not given
   if File.exists?(filename)
     load_students(filename)
@@ -22,9 +22,15 @@ def try_load_students
   end
 end
 
-def save_students
+def file_name
+  puts "which file would you like to use ? If you wish to use the default one just hit return "
+  user_file = STDIN.gets.chomp
+  user_file == "" ? "students.csv" : user_file
+end
+
+def save_students(filename = "students.csv")
   # open the file for writting
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # iterate over the array of save_students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -39,8 +45,8 @@ def print_menu
   puts "\nChoose one of the following action by typing the number of it :"
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to file"
+  puts "4. Load the list from file"
   puts "9. Exit"
 end
 
@@ -54,8 +60,8 @@ def case_action(selection)
   case selection
   when "1" then input_students
   when "2" then show_students
-  when "3" then save_students
-  when "4" then load_students
+  when "3" then save_students(file_name)
+  when "4" then load_students(file_name)
   when "9"
     puts "Bye"
     exit
